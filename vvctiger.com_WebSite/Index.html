@@ -1,11 +1,17 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="siteApp">
 <head>
     <meta charset="utf-8" />
-    <title>My ASP.NET Application</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>My ASP.NET Application</title>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")    
+    <script src="/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="/Scripts/angular.min.js"></script>
+    <script src="/Scripts/angular-route.min.js"></script>
+    <script src="/Scripts/app/app.js"></script>
+    <script src="/Scripts/app/controllers/ghostController.js"></script>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,24 +22,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li></li>
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()        
+        <a href="/#/ghostgame/">Click Me to redirect</a>
+        <div ng-view class="container"></div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; My ASP.NET Application</p>
         </footer>
     </div>
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/angular.min.js"></script>
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("Scripts", required: false)
+    
 </body>
 </html>
