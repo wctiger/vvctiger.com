@@ -1,14 +1,76 @@
 ﻿<script src="/Scripts/jquery.signalR-2.2.0.min.js"></script>
 <script src="/signalr/hubs"></script>
 
+
 <div>
-    <div class="container">
-        <input type="text" id="txtName" />
-        <br />
-        <input type="text" id="txtMessage" />
-        <input type="button" id="btnSend" value="Send" />
-        <br />
-        <input type="hidden" id="hidName" />
-        <ul id="ulStatusBoard"></ul>
+    <!--Step 0: Input player names and create new game-->
+    <div class="row" ng-show="step == 0">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3>Input name:</h3>
+            </div>
+            <div class="panel-body">
+                <input id="txtUserName" type="text" ng-model="userName" placeholder="Player Name" />
+                <br />
+                <input id="btnCreateGame" type="button" class="btn btn-block" value="New Game" ng-click="createNewGame(userName)" />
+            </div>
+        </div>
     </div>
+    <!--Step 1: Config new game-->
+    <div class="row col-lg-6 col-sm-12" ng-show="step == 1">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3>Catch the Ghost: Game Settings</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <label>Game Mode:</label>
+                    <select ng-model="gameSetting.GameMode">
+                        <option>MANUAL</option>
+                        <option>AUTOMATIC</option>
+                    </select>
+                </div>
+                <div class="row"  ng-show="gameSetting.GameMode === 'MANUAL'">
+                    <ul>
+                        <li>
+                            <span>
+                                <label>Human: </label>
+                                <input type="text" ng-model="gameSetting.HumanWord" placeholder="Human word" />
+                                <label> X </label>
+                                <input type="number" ng-model="gameSetting.HumanCount" placeholder="Number of humans" />
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <label>Human: </label>
+                                <input type="text" ng-model="gameSetting.FoolWord" placeholder="Fool's word" />
+                                <label> X </label>
+                                <input type="number" ng-model="gameSetting.FoolCount" placeholder="Number of fools" />
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <label>Human: </label>
+                                <input type="text" ng-model="gameSetting.GhostWord" placeholder="Ghost's Word" />
+                                <label> X </label>
+                                <input type="number" ng-model="gameSetting.GhostCount" placeholder="Number of ghosts" />
+                            </span>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <input type="button" class="btn btn-block pull-right" value="Start Game!" ng-click="startGame(gameSetting)" />
+            </div>
+            
+        </div>
+    </div>
+    <!--Step 2: Game hall-->
+    <div class="row col-lg-6 col-sm-12" ng-show="step == 2">        
+        <ul id="ulStatusBoard"></ul>
+        <input type="button" class="btn btn-block" value="See My Word" ng-click="viewWord(userConnectionId)"/>
+    </div>
+    <input type="hidden" id="hidName" ng-model="userName"/>
+    <input type="hidden" id="hidUserConnectionId" ng-model="userConnectionId" />
 </div>
+

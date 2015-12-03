@@ -11,4 +11,4 @@ app.config(['$routeProvider',
         otherwise({
             redirectTo: 'Index.html'
         });
-    }]);
+    }]); 
