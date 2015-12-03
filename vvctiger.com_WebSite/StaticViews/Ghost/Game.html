@@ -12,7 +12,8 @@
             <div class="panel-body">
                 <input id="txtUserName" type="text" ng-model="userName" placeholder="Player Name" />
                 <br />
-                <input id="btnCreateGame" type="button" class="btn btn-block" value="New Game" ng-click="createNewGame(userName)" />
+                <input id="btnCreateGame" type="button" class="btn btn-block" value="New Game" ng-click="createNewGame(userName)" ng-show="!gameReady" />
+                <input id="btnJoinGame" type="button" class="btn btn-block" value="Enter Game Hall" ng-click="joinGame(userName)" ng-show="gameReady"/>
             </div>
         </div>
     </div>
@@ -60,7 +61,7 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <input type="button" class="btn btn-block pull-right" value="Start Game!" ng-click="startGame(gameSetting)" />
+                <input type="button" class="btn btn-block pull-right" value="Enter Game Hall" ng-click="joinGame(userName);gameReady = true" />
             </div>
             
         </div>
@@ -68,9 +69,10 @@
     <!--Step 2: Game hall-->
     <div class="row col-lg-6 col-sm-12" ng-show="step == 2">        
         <ul id="ulStatusBoard"></ul>
-        <input type="button" class="btn btn-block" value="See My Word" ng-click="viewWord(userConnectionId)"/>
+        <input type="button" class="btn btn-block" value="Start Game!" ng-click="startGame(gameSetting)" ng-show="leaderFlag && !gameStarted" />
+        <input type="button" class="btn btn-block" value="See My Word" ng-click="toggleUserWord()" ng-show="gameStarted &&!showUserWord" />
+        <input type="button" class="btn btn-block" value="{{userWord}}" ng-click="toggleUserWord()" ng-show="gameStarted && showUserWord" />
     </div>
-    <input type="hidden" id="hidName" ng-model="userName"/>
-    <input type="hidden" id="hidUserConnectionId" ng-model="userConnectionId" />
+    <input type="hidden" id="hidName" ng-model="userName"/>    
 </div>
 
