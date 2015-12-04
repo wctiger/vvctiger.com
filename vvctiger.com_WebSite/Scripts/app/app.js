@@ -1,4 +1,4 @@
-﻿var app = angular.module('siteApp', ['ngRoute', 'siteControllers']);
+﻿var app = angular.module('siteApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'siteControllers']);
 
 var siteCtrls = angular.module('siteControllers', []);
 

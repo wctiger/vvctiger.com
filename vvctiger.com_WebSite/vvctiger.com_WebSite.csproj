@@ -1045,6 +1045,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="StaticViews\Error.html" />
     <Content Include="StaticViews\Ghost\Game.html" />
+    <Content Include="StaticViews\Modals\ConfirmModal.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
