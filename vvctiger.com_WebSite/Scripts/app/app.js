@@ -4,11 +4,16 @@ var siteCtrls = angular.module('siteControllers', []);
 
 app.config(['$routeProvider',
     function($routeProvider){
-        $routeProvider.when('/ghostgame', {
+        $routeProvider
+        .when('/', {
+            templateUrl: '/StaticViews/Main/Main.html',
+            controller: 'mainController'
+        })
+        .when('/ghostgame', {
             templateUrl: '/StaticViews/Ghost/Game.html',
             controller: 'ghostController'
-        }).
-        otherwise({
-            redirectTo: 'Index.html'
+        })
+        .otherwise({
+            redirectTo: 'NotFound.html'
         });
     }]); 
