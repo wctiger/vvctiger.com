@@ -69,6 +69,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,18 +79,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\WordPair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="vvctiger_Context.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vvctiger_Context.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vvctiger_Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vvctiger_Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vvctiger_Context.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vvctiger_Context.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="WordPair.cs">
+      <DependentUpon>vvctiger_Context.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="vvctiger_Context.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>vvctiger_Context.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="vvctiger_Context.edmx.diagram">
+      <DependentUpon>vvctiger_Context.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="vvctiger_Context.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>vvctiger_Context.edmx</DependentUpon>
+      <LastGenOutput>vvctiger_Context.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="vvctiger_Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>vvctiger_Context.edmx</DependentUpon>
+      <LastGenOutput>vvctiger_Context.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
-    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
