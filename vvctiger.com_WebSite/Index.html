@@ -5,6 +5,7 @@
     <title>vvctiger.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/jQuery.blockUI.js"></script>
     <script src="/Scripts/angular.min.js"></script>
     <script src="/Scripts/angular-route.min.js"></script>
     <script src="/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
@@ -55,8 +56,8 @@
         <!-- /.container-fluid -->
     </nav>
     <!-- Header -->
-    <div class="container body-content">
-        <div ng-view class="container"></div>
+    <div>
+        <div ng-view></div>
     </div>
     <!-- Footer -->
     <footer class="text-center">
@@ -65,7 +66,7 @@
                 <div class="row">
                     <div class="footer-col col-md-6">
                         <h3>Location</h3>
-                        <p>Weehawken, NJ 07086</p>
+                        <p>Weehawken, NJ, USA 07086</p>
                     </div>
                     <div class="footer-col col-md-6">
                         <h3>Around the Web</h3>

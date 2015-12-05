@@ -1,0 +1,4 @@
+﻿siteCtrls.controller('photoController', [
+    function() {
+        
+    }]);

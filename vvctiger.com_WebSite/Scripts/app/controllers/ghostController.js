@@ -1,6 +1,6 @@
 ﻿siteCtrls.controller('ghostController', ['$scope', '$timeout',
     function ($scope, $timeout) {
-
+        $scope.$parent.startLoad("Game Loading...");
         $scope.step = 0;
         $scope.gameSetting = {};
         $scope.userWord = null;
@@ -71,6 +71,8 @@
         $.connection.hub.start().done(function () {
 
             $scope.$apply();
+
+            $scope.$parent.endLoad();
 
             $scope.createNewGame = function (userName) {                
                 ghostHub.server.createNewGame(userName);

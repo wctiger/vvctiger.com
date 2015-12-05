@@ -203,7 +203,7 @@ section.success a.active {
     }
 }
 
-#portfolio .portfolio-item {
+/*#portfolio .portfolio-item {
     right: 0;
     margin: 0 0 15px;
 }
@@ -215,7 +215,7 @@ section.success a.active {
     max-width: 400px;
 }
 
-#portfolio .portfolio-item .portfolio-link .caption {
+#portfolio .portfolio-item .portfolio-link .caption{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -258,7 +258,7 @@ section.success a.active {
     #portfolio .portfolio-item {
         margin: 0 0 30px;
     }
-}
+}*/
 
 .btn-outline {
     margin-top: 15px;

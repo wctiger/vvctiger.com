@@ -2,108 +2,126 @@
 <script src="/signalr/hubs"></script>
 
 
-<div>
-    <!--Step 0: Input player names and create new game-->
-    <div class="row" ng-show="step == 0">
-        <div class="panel">
-            <div class="panel-heading">
-                <h3>Input name:</h3>
+<section class="container" id="ghostGameDiv" style="margin-top:20px">
+    <!--Game Intro-->
+    <div class="container-fluid">
+        <div class="text-center">
+            ****GAME INFORMATION ****
+            <div>
+                <button type="button" class="btn btn-danger" ng-click="reset()">Reset Game(Debugging)</button>
             </div>
-            <div class="panel-body">
-                <input id="txtUserName" type="text" ng-model="userName" placeholder="Player Name" />
+        </div>
+    </div>
+    <!--Step 0: Input player names and create new game-->
+    <div class="col-xs-8 col-xs-offset-2" ng-show="step == 0">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">First, what's your name:</h3>
+            </div>
+            <div class="panel-body center-block">
+                <input id="txtUserName" type="text" class="center-block" ng-model="userName" placeholder="Player Name" maxlength="16" />
                 <br />
-                <input id="btnCreateGame" type="button" class="btn btn-block" value="New Game" ng-click="createNewGame(userName)" ng-show="gameStatus <= 1" />
-                <span class="btn btn-block" ng-show="gameStatus == 2">Game is being prepared. Please wait</span>
-                <input id="btnJoinGame" type="button" class="btn btn-block" value="Enter Game Hall" ng-click="joinGame(userName)" ng-show="gameStatus == 3"/>
-                <span class="btn btn-block" ng-show="gameStatus > 3">Game in session.. Please wait for next game</span>
+                <input id="btnCreateGame" type="button" class="btn btn-success center-block" value="New Game" ng-click="createNewGame(userName)" ng-show="gameStatus <= 1" />
+                <div class="alert alert-success center-block" ng-show="gameStatus == 2">Game is being prepared. Please wait</div>
+                <input id="btnJoinGame" type="button" class="btn btn-success center-block" value="Enter Game Hall" ng-click="joinGame(userName)" ng-show="gameStatus == 3" />
+                <span class="alert alert-success center-block" ng-show="gameStatus > 3">Game in session.. Please wait for next game</span>
             </div>
         </div>
     </div>
     <!--Step 1: Config new game-->
-    <div class="row col-lg-6 col-sm-12" ng-show="step == 1">
-        <div class="panel">
+    <div class="col-xs-8 col-xs-offset-2" ng-show="step == 1">
+        <div class="panel panel-success">
             <div class="panel-heading">
-                <h3>Catch the Ghost: Game Settings</h3>
+                <h3 class="panel-title">Catch the Ghost: Game Settings</h3>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <label>Game Mode:</label>
+                <div class="center-block" style="margin-bottom:10px">
+                    <label>Game Mode: </label>
                     <select ng-model="gameSetting.GameMode">
                         <option>MANUAL</option>
                         <option>AUTOMATIC</option>
                     </select>
                 </div>
-                <div class="row"  ng-show="gameSetting.GameMode === 'MANUAL'">
-                    <ul>
+                <div class="row" ng-show="gameSetting.GameMode === 'MANUAL'">
+                    <ul class="list-unstyled">
                         <li>
-                            <span>
-                                <label>Human: </label>
+                            <span class="list-group-item">
+                                <label class="col-xs-2">Human: </label>
                                 <input type="text" ng-model="gameSetting.HumanWord" placeholder="Human word" />
                                 <label> X </label>
                                 <input type="number" ng-model="gameSetting.HumanCount" placeholder="Number of humans" />
                             </span>
                         </li>
                         <li>
-                            <span>
-                                <label>Fool: </label>
+                            <span class="list-group-item">
+                                <label class="col-xs-2">Fool: </label>
                                 <input type="text" ng-model="gameSetting.FoolWord" placeholder="Fool's word" />
                                 <label> X </label>
                                 <input type="number" ng-model="gameSetting.FoolCount" placeholder="Number of fools" />
                             </span>
                         </li>
                         <li>
-                            <span>
-                                <label>Ghoat: </label>
+                            <span class="list-group-item">
+                                <label class="col-xs-2">Ghost: </label>
                                 <input type="text" ng-model="gameSetting.GhostWord" placeholder="Ghost's Word" />
                                 <label> X </label>
                                 <input type="number" ng-model="gameSetting.GhostCount" placeholder="Number of ghosts" />
                             </span>
-                        </li>                        
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="panel-footer">
-                <input type="button" class="btn btn-block pull-right" value="Enter Game Hall" ng-click="joinGame(userName);gameStatus = 3" />
-            </div>
-            
+        </div>
+        <div class="col-xs-offset-8">
+            <input type="button" class="btn btn-primary pull-right" value="Enter Game Hall" ng-click="joinGame(userName);gameStatus = 3" />
         </div>
     </div>
     <!--Step 2: Game hall-->
-    <div class="row col-lg-6 col-sm-12" ng-show="step == 2">        
-        <ul id="ulStatusBoard"></ul>
-        <span class="btn btn-block" ng-show="gameStatus <4 && !leaderFlag">Waiting for leader to start game..</span>
-        <input type="button" class="btn btn-block" value="Start Game!" ng-click="startGame(gameSetting, userName)" ng-show="leaderFlag && gameStatus < 4" />
-        <span class="btn btn-block" ng-show="gameStatus >= 4 && leaderFlag">Game in session...</span>
-        <input type="button" class="btn btn-block" value="See My Word" ng-click="toggleUserWord()" ng-show="gameStatus >= 4 &&!showUserWord && !leaderFlag" />
-        <input type="button" class="btn btn-block" value="{{userWord}}" ng-click="toggleUserWord()" ng-show="gameStatus >= 4 && showUserWord" />
-        <br />
-        <uib-accordion>
-            <div ng-show="leaderFlag">
-                <uib-accordion-group heading="Exit & Start New" panel-class="panel-danger">
-                    <p>Are you sure you want to reset the game and start over?</p>
-                    <br />
-                    <input type="button" class="btn btn-block btn-danger" value="Exit & Start New" ng-click="reset()" />
-                </uib-accordion-group>
+    <div class="col-xs-8 col-xs-offset-2" ng-show="step == 2">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Catch the ghost: game hall</h3>
             </div>
-            <div ng-show="gameStatus >= 4">
-                <uib-accordion-group heading="See All Words">
-                    <div ng-show="!showAllWords">
-                        <p>Only DEAD player can see all the words. Also, once hit the button below, every other player will be announced.</p>
-                        <p>Are you sure you are DEAD and want to see all words?</p>
+            <div class="panel-body">
+                <ul id="ulStatusBoard" class="list-unstyled">
+                </ul>
+                <hr />
+                <span class="alert alert-success pull-right" ng-show="gameStatus <4 && !leaderFlag">Waiting for leader to start game..</span>
+                <input type="button" class="btn btn-success col-xs-4 pull-right" value="Start Game!" ng-click="startGame(gameSetting, userName)" ng-show="leaderFlag && gameStatus < 4" />
+                <span class="alert alert-success pull-right" ng-show="gameStatus >= 4 && leaderFlag">Game in session...</span>
+                <input type="button" class="btn btn-success pull-right" value="See My Word" ng-click="toggleUserWord()" ng-show="gameStatus >= 4 &&!showUserWord && !leaderFlag" />
+                <input type="button" class="btn btn-success pull-right" value="{{userWord}}" ng-click="toggleUserWord()" ng-show="gameStatus >= 4 && showUserWord" />
+            </div>
+        </div>
+        <div class="row">
+            <uib-accordion>
+                <div ng-show="leaderFlag">
+                    <uib-accordion-group heading="Exit & Start New" panel-class="panel-danger">
+                        <p>Are you sure you want to reset the game and start over?</p>
                         <br />
-                        <input id="btnShowAllWords" type="button" class="btn btn-block" value="See All Words" ng-click="viewAllWords(userName)"/>
-                    </div>
-                    <div ng-show="showAllWords">
-                        <ul class="list-unstyled">
-                            <li ng-repeat="(user, word) in gameData">
-                                {{user}}: {{word}}
-                            </li>
-                        </ul>
-                    </div>
-                </uib-accordion-group>
-            </div>
-        </uib-accordion>                        
+                        <input type="button" class="btn btn-danger pull-right" value="Exit & Start New" ng-click="reset()" />
+                    </uib-accordion-group>
+                </div>                
+                <div ng-show="gameStatus >= 4">
+                    <uib-accordion-group heading="See All Words" panel-class="panel-warning">
+                        <div ng-show="!showAllWords">
+                            <p>Only DEAD player can see all the words. Also, once hit the button below, every other player will be announced.</p>
+                            <p>Are you sure you are DEAD and want to see all words?</p>
+                            <br />
+                            <input id="btnShowAllWords" type="button" class="btn btn-warning pull-right" value="See All Words" ng-click="viewAllWords(userName)" />
+                        </div>
+                        <div ng-show="showAllWords">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="(user, word) in gameData" class="list-group-item">
+                                    {{user}}: {{word}}
+                                </li>
+                            </ul>
+                        </div>
+                    </uib-accordion-group>
+                </div>
+            </uib-accordion>
+        </div>
     </div>
-    <input type="hidden" id="hidName" ng-model="userName"/>    
-</div>
+    <input type="hidden" id="hidName" ng-model="userName" />
+</section>
 

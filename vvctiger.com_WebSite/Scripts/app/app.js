@@ -13,6 +13,13 @@ app.config(['$routeProvider',
             templateUrl: '/StaticViews/Ghost/Game.html',
             controller: 'ghostController'
         })
+        .when('/about',{
+            templateUrl: '/StaticViews/About/About.html'            
+        })
+        .when('/gallery',{
+            templateUrl: 'StaticViews/Gallery/Gallery.html',
+            controller: 'photoController'
+        })
         .otherwise({
             redirectTo: 'NotFound.html'
         });
